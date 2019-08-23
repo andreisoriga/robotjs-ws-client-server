@@ -16,7 +16,14 @@
     "websocket-as-promised": "^0.10.1"
   },
   "devDependencies": {
+    "eslint": "^6.2.1",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-config-node": "^4.0.0",
+    "eslint-config-prettier": "^6.1.0",
+    "eslint-plugin-node": "^9.1.0",
+    "eslint-plugin-prettier": "^3.1.0",
     "node-loader": "^0.6.0",
+    "prettier": "^1.18.2",
     "webpack": "^4.39.2",
     "webpack-cli": "^3.3.7"
   }
