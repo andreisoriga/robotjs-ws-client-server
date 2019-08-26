@@ -1,3 +1,4 @@
+/* eslint-disable strict */
 var WebSocketServer = require('websocket').server
 var http = require('http')
 var robot = require('robotjs')
@@ -12,7 +13,7 @@ server.listen(8080, function() {
   console.log(new Date() + ' Server is listening on port 8080')
 })
 
-wsServer = new WebSocketServer({
+const wsServer = new WebSocketServer({
   httpServer: server,
   // You should not use autoAcceptConnections for production
   // applications, as it defeats all standard cross-origin protection
@@ -37,11 +38,11 @@ wsServer.on('request', function(request) {
     return
   }
 
-  var connection = request.accept('echo-protocol', request.origin)
+  const connection = request.accept('echo-protocol', request.origin)
   console.log(new Date() + ' Connection accepted.')
 
   connection.on('message', function(message) {
-    const data = JSON.parse(message.utf8Data)
+    let data = JSON.parse(message.utf8Data)
 
     if (message.type === 'utf8') {
       console.log('Received Message: ' + message.utf8Data)
@@ -62,7 +63,7 @@ wsServer.on('request', function(request) {
 
         if (compiledWidth > monitorSize.width) {
           const difference = compiledWidth - monitorSize.width
-          data.args.width = data.args.width - difference
+          data.args.width -= difference
           console.log(
             `Requested width (${compiledWidth}) exceeds monitor bounds (${monitorSize.width}), limiting to ${data.args.width}`
           )
@@ -70,7 +71,7 @@ wsServer.on('request', function(request) {
 
         if (compiledHeight > monitorSize.height) {
           const difference = compiledHeight - monitorSize.height
-          data.args.height = data.args.height - difference
+          data.args.height -= difference
           console.log(
             `Requested height (${compiledHeight}) exceeds monitor bounds (${monitorSize.height}), limiting to ${data.args.height}`
           )
@@ -80,7 +81,7 @@ wsServer.on('request', function(request) {
           `Taking screenshot at ${data.args.x}, ${data.args.y}, ${data.args.width}, ${data.args.height}`
         )
 
-        var image = robot.screen.capture(
+        let image = robot.screen.capture(
           data.args.x,
           data.args.y,
           data.args.width,
